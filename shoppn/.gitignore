@@ -1,0 +1,10 @@
+core/db_cred.php
+error/error.log
+.vscode/
+.cursor/
+.DS_Store
+Thumbs.db
+images/customers/*
+images/products/*
+!images/customers/.gitkeep
+!images/products/.gitkeep
