@@ -1,8 +1,4 @@
 <?php
-// core/db_class.php
-// Task 2: the database connection base class.
-// Every Model class (classes/*.php) extends this. It does nothing but connect —
-// no SQL, no HTML, no business logic belongs here.
 
 require_once __DIR__ . '/db_cred.php';
 

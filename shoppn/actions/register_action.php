@@ -29,8 +29,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 50) {
     $errors[] = 'Please enter a valid email address.';
 }
 
-if (strlen($pass) < 6) {
-    $errors[] = 'Password must be at least 6 characters.';
+$passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/';
+
+if (!preg_match($passwordRegex, $pass)) {
+    $errors[] = 'Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a symbol.';
 }
 
 if (strlen($country) > 60 || strlen($city) > 60 || strlen($contact) > 20) {

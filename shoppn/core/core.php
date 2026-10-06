@@ -57,11 +57,17 @@ function require_admin()
 }
 
 
-if (!defined('APP_BASE')) {
-    define('APP_BASE', '/E-Commerce_LAB26/shoppn/');
-}
-
 function base_url($path = '')
 {
-    return APP_BASE . ltrim($path, '/');
+    static $base = null;
+
+    if ($base === null) {
+        $script = $_SERVER['SCRIPT_NAME'];
+        $position = strpos($script, '/shoppn/');
+        $base = $position !== false
+            ? substr($script, 0, $position + strlen('/shoppn/'))
+            : '/';
+    }
+
+    return $base . ltrim($path, '/');
 }

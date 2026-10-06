@@ -25,8 +25,8 @@
             <span>Welcome, <?= htmlspecialchars($_SESSION['customer_name']) ?></span>
             <a href="<?= base_url('views/account/my_account.php') ?>">My Account</a>
             <?php if (is_admin()): ?>
-                <a href="<?= base_url('views/admin/product.php') ?>">Admin</a>
-            <?php endif; ?>
+                <a href="<?= base_url('views/admin/index.php') ?>">Actions</a>
+<?php endif; ?>
             <a href="<?= base_url('logout.php') ?>">Logout</a>
         <?php else: ?>
             <a href="<?= base_url('views/register.php') ?>">Register</a>

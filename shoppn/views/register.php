@@ -25,9 +25,14 @@ require __DIR__ . '/layout/header.php';
         </label>
 
         <label>
-            Password
-            <input type="password" name="pass" id="pass" required minlength="6">
-        </label>
+        <span>Password
+    <input type="password" name="pass" id="pass" required
+           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$"
+           title="Min 8 characters, with an uppercase letter, a lowercase letter, a number, and a symbol.">
+    <small style="color: var(--text-muted); font-size: 0.8rem;">
+        At least 8 characters, with an uppercase letter, a lowercase letter, a number, and a symbol.
+    </small>
+</label>
 
         <label>
             Country

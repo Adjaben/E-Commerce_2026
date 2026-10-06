@@ -40,6 +40,8 @@
         const email = form.querySelector('#email');
         const pass = form.querySelector('#pass');
         const contact = form.querySelector('#contact');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
         if (name && name.value.trim().length === 0) {
             showError(name, 'Please enter your name.');
