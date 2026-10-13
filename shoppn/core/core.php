@@ -71,3 +71,40 @@ function base_url($path = '')
 
     return $base . ltrim($path, '/');
 }
+
+function upload_product_image($file)
+{
+    $maxSize = 2 * 1024 * 1024; // 2MB
+    $allowed = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/gif'  => 'gif',
+        'image/webp' => 'webp',
+    ];
+
+    if (!$file || $file['error'] === UPLOAD_ERR_NO_FILE) {
+        return ['ok' => false, 'error' => 'Please choose an image.'];
+    }
+
+    if ($file['error'] === UPLOAD_ERR_INI_SIZE || $file['error'] === UPLOAD_ERR_FORM_SIZE || $file['size'] > $maxSize) {
+        return ['ok' => false, 'error' => 'Image must be 2MB or smaller.'];
+    }
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        return ['ok' => false, 'error' => 'Upload failed. Please try again.'];
+    }
+
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+    if (!isset($allowed[$mime])) {
+        return ['ok' => false, 'error' => 'Only JPG, PNG, GIF or WEBP images are allowed.'];
+    }
+
+    $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '', pathinfo($file['name'], PATHINFO_FILENAME));
+    $filename = uniqid() . '_' . ($safeName !== '' ? $safeName : 'image') . '.' . $allowed[$mime];
+
+    if (!move_uploaded_file($file['tmp_name'], __DIR__ . '/../images/products/' . $filename)) {
+        return ['ok' => false, 'error' => 'Could not save the image.'];
+    }
+
+    return ['ok' => true, 'filename' => $filename];
+}

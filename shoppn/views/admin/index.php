@@ -21,7 +21,7 @@ require __DIR__ . '/../layout/header.php';
     <ul class="admin-action-list">
         <li><a href="<?= base_url('views/admin/brand.php') ?>">Manage Brands</a> — add or edit brands</li>
         <li><a href="<?= base_url('views/admin/category.php') ?>">Manage Categories</a> — add or edit categories</li>
+        <li><a href="<?= base_url('views/admin/product.php') ?>">Manage Products</a> — add or edit products</li>
     </ul>
 </div>
 
-<?php require __DIR__ . '/../layout/footer.php'; ?>

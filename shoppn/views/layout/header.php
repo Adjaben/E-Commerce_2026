@@ -16,7 +16,7 @@
     <a class="logo" href="<?= base_url('index.php') ?>">Shoppn</a>
 
     <form class="search-bar" action="<?= base_url('views/search_results.php') ?>" method="GET">
-        <input type="text" name="q" placeholder="Search products...">
+    <input type="text" name="user_query" placeholder="Search products...">
         <button type="submit">Search</button>
     </form>
 

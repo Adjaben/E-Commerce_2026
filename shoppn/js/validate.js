@@ -57,8 +57,8 @@
             clearError(email);
         }
 
-        if (pass && pass.value.length < 6) {
-            showError(pass, 'Password must be at least 6 characters.');
+        if (pass && !passwordRegex.test(pass.value)) {
+            showError(pass, 'Min 8 characters, with an uppercase letter, a lowercase letter, a number, and a symbol.');
             valid = false;
         } else if (pass) {
             clearError(pass);
@@ -121,4 +121,45 @@
             });
         }
     });
+
+    // Product form: image type/size check (UX only; PHP re-checks in upload_product_image())
+(function () {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const maxBytes = 2 * 1024 * 1024;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('product-form');
+        const fileInput = document.getElementById('product_image');
+        if (!form || !fileInput) return;
+
+        function checkFile() {
+            const old = fileInput.nextElementSibling;
+            if (old && old.classList.contains('field-error')) old.remove();
+
+            const file = fileInput.files[0];
+            if (!file) return true; // empty is fine in edit mode; "required" covers add mode
+
+            let message = '';
+            if (!allowedTypes.includes(file.type)) {
+                message = 'Only JPG, PNG, GIF or WEBP images are allowed.';
+            } else if (file.size > maxBytes) {
+                message = 'Image must be 2MB or smaller.';
+            }
+
+            if (message) {
+                const span = document.createElement('span');
+                span.className = 'field-error';
+                span.textContent = message;
+                fileInput.insertAdjacentElement('afterend', span);
+                return false;
+            }
+            return true;
+        }
+
+        fileInput.addEventListener('change', checkFile);
+        form.addEventListener('submit', function (e) {
+            if (!checkFile()) e.preventDefault();
+        });
+    });
+})();
 })();
