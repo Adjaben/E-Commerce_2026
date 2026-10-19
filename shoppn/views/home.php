@@ -19,10 +19,18 @@ if (isset($_GET['cat'])) {
 require __DIR__ . '/layout/header.php';
 ?>
 
+<?php if (!isset($_GET['cat']) && !isset($_GET['brand'])): ?>
+    <section class="hero">
+        <p>Thoughtfully chosen products, simply presented.</p>
+        <a class="btn" href="#products">Shop now</a>
+        <h1>Shoppn</h1>
+    </section>
+<?php endif; ?>
+
 <div class="layout">
     <?php require __DIR__ . '/layout/sidebar.php'; ?>
 
-    <div class="page page-home">
+    <div class="page page-home" id="products">
         <?php if (isset($_SESSION['error'])): ?>
             <p class="error"><?= htmlspecialchars($_SESSION['error']) ?></p>
             <?php unset($_SESSION['error']); ?>

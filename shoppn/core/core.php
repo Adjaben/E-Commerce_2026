@@ -1,8 +1,4 @@
 <?php
-// core/core.php
-// Task 2 / Task 4: included on every page.
-// Starts the session, sets the timezone, requires db_class, and defines the
-// shared helper functions every controller/action/view can call.
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -107,4 +103,17 @@ function upload_product_image($file)
     }
 
     return ['ok' => true, 'filename' => $filename];
+}
+
+function redirect_back($fallback = 'index.php')
+{
+    $ref     = $_SERVER['HTTP_REFERER'] ?? '';
+    $refHost = parse_url($ref, PHP_URL_HOST);
+    $myHost  = parse_url('//' . ($_SERVER['HTTP_HOST'] ?? ''), PHP_URL_HOST);
+
+    if ($ref !== '' && $refHost && $refHost === $myHost) {
+        redirect($ref);
+    }
+
+    redirect(base_url($fallback));
 }

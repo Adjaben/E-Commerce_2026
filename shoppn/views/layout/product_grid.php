@@ -15,7 +15,7 @@
                 <p class="price">GH₵ <?= number_format($p['product_price'], 2) ?></p>
                 <div class="card-links">
                     <a href="<?= base_url('views/single_product.php?pro_id=' . (int) $p['product_id']) ?>">Details</a>
-                    <a href="<?= base_url('index.php?add_cart=' . (int) $p['product_id']) ?>">Add to Cart</a>
+                    <a href="<?= base_url('actions/add_to_cart_action.php?add_cart=' . (int) $p['product_id']) ?>">Add to Cart</a>
                 </div>
             </div>
         <?php endforeach; ?>
